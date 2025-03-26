@@ -1,0 +1,12 @@
+.img {
+    width: 180px;
+}
+
+.user {
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-direction: column;
+}
