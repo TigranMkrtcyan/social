@@ -3,17 +3,28 @@ import User from '../../components/User/User'
 
 import style from './UsersPage.module.css'
 import { useState, useEffect } from 'react'
-import { changeSize, getUserTH } from '../../store/reducers/usersReducer'
+import { getUserTH, minusSize, plusSize } from '../../store/reducers/usersReducer'
 
 const UsersPage = () => {
     const dispatch = useDispatch()
-    const { users , size } = useSelector(store => store.usersReducer)
+    const { users, size } = useSelector(store => store.usersReducer)
 
     const [pages, setPages] = useState([])
 
     const handlepage = (page) => {
         dispatch(getUserTH(page))
-        dispatch(changeSize(40))
+    }
+
+    const plus = () => {
+        dispatch(plusSize(size + 60))
+    }
+
+    const minus = (num) => {
+        if (size == 0) {
+            size
+        } else {
+            dispatch(minusSize(size - num))
+        } 
     }
 
     useEffect(() => {
@@ -30,9 +41,9 @@ const UsersPage = () => {
             <div className={style.slider}>
                 <div className={style.btns} style={{ left: `-${size}px` }} >
                     {pages.map((el) => (
-                        <button 
-                            key={el} 
-                            onClick={() => handlepage(el)} 
+                        <button
+                            key={el}
+                            onClick={() => handlepage(el)}
                             className={style.btn}
                         >
                             {el}
@@ -40,12 +51,16 @@ const UsersPage = () => {
                     ))}
                 </div>
             </div>
-            <div className={style.users}>
-                {users.items.map((user) => (
-                    <User key={user.id} user={user} />
-                ))}
-            </div>
-        </div>
+            <div className={style.arows}>
+                <button className={style.btn} onClick={() => minus(60)}>&#8592;</button>
+                <button className={style.btn} onClick={() => plus()}>&#8594;</button>
+            </div >
+    <div className={style.users}>
+        {users.items.map((user) => (
+            <User key={user.id} user={user} />
+        ))}
+    </div>
+        </div >
     )
 }
 

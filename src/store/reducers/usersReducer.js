@@ -2,7 +2,8 @@ import API from "../../api/api"
 
 const GET_USERS = 'getReducer'
 const FETCHING = 'fetching'
-const SIZE = 'size'
+const PLUS_SIZE = 'plussize'
+const MINUS_SIZE = 'minsize'
 
 const initState = {
     users: {
@@ -28,10 +29,15 @@ const usersReducer = (state = initState, action) => {
                 ...state,
                 fetching: action.payload
             }
-        case SIZE: 
+        case PLUS_SIZE: 
             return {
                 ...state,
-                size : state.size + action.payload
+                size : action.payload
+            }
+        case MINUS_SIZE: 
+            return {
+                ...state,
+                size : action.payload
             }
         default:
             return state
@@ -40,7 +46,8 @@ const usersReducer = (state = initState, action) => {
 
 const getUserAC = (user) => ({ type: GET_USERS, payload: user })
 const FetchingAC = (bool) => ({ type: FETCHING, payload: bool })
-export const changeSize = (size) => ({type : SIZE, payload : size})
+export const plusSize = (size) => ({type : PLUS_SIZE, payload : size})
+export const minusSize = (size) => ({type : MINUS_SIZE, payload : size})
 
 export const getUserTH = (page = 1) => {
     return (dispatch) => {

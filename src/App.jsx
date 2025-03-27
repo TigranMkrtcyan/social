@@ -21,7 +21,7 @@ function App() {
       {fetching ? <div className='loading'></div> :
         <Routes>
           <Route path='/' element={<Layout />}>
-            <Route path='/users' element={<UsersPage />} />
+            <Route index element={<UsersPage />} />
           </Route>
         </Routes>}
     </div >
