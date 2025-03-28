@@ -5,10 +5,12 @@ import { Route, Routes } from 'react-router-dom'
 
 import Layout from './components/Layout/Layout'
 import UsersPage from './pages/UsersPage/UsersPage'
+import HomePage from './pages/HomePage/HomePage'
 
 import './App.css'
+import ProfilePage from './pages/ProfilePage/ProfilePage'
 
-function App() {
+function App({valid}) {
   const dispatch = useDispatch()
   const { fetching } = useSelector(store => store.usersReducer)
 
@@ -21,7 +23,9 @@ function App() {
       {fetching ? <div className='loading'></div> :
         <Routes>
           <Route path='/' element={<Layout />}>
-            <Route index element={<UsersPage />} />
+            <Route index element={<HomePage valid={valid}/>} />
+            <Route path='/users' element={<UsersPage />} />
+            <Route path='/profile/:id' element={<ProfilePage />} />
           </Route>
         </Routes>}
     </div >

@@ -1,0 +1,85 @@
+.loginContainer {
+    width: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f2f5;
+}
+
+.loginBox {
+    width: 800px;
+    max-width: 400px;
+    padding: 30px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.loginTitle {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 24px;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.formGroup {
+    margin: auto;
+    width: 500px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.inputField {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.submitButton {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.submitButton:hover {
+    background-color: #45a049;
+}
+
+.errorMessage {
+    color: red;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.registerLink {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.registerLink a {
+    color: #1877f2;
+    text-decoration: none;
+}
+
+.registerLink a:hover {
+    text-decoration: underline;
+}

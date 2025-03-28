@@ -1,40 +1,47 @@
 import { useDispatch, useSelector } from 'react-redux'
 import User from '../../components/User/User'
-
 import style from './UsersPage.module.css'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { getUserTH, minusSize, plusSize } from '../../store/reducers/usersReducer'
+import { NavLink } from 'react-router-dom'
 
 const UsersPage = () => {
     const dispatch = useDispatch()
     const { users, size } = useSelector(store => store.usersReducer)
 
+    const [currentPage, setCurrentPage] = useState(1)
     const [pages, setPages] = useState([])
 
-    const handlepage = (page) => {
-        dispatch(getUserTH(page))
-    }
+    const handlePage = useCallback((page) => {
+        if (page !== currentPage) {
+            dispatch(getUserTH(page))
+            setCurrentPage(page)
+        }
+    }, [dispatch, currentPage])
 
-    const plus = () => {
+    const plus = useCallback(() => {
         dispatch(plusSize(size + 60))
-    }
+    }, [dispatch, size])
 
-    const minus = (num) => {
-        if (size == 0) {
-            size
-        } else {
-            dispatch(minusSize(size - num))
-        } 
-    }
+    const minus = useCallback(() => {
+        if (size > 0) {
+            dispatch(minusSize(size - 60))
+        }
+    }, [dispatch, size])
 
     useEffect(() => {
-        if (users.totalCount) {
+        if (users.totalCount && pages.length === 0) {
             const totalPages = Math.ceil(users.totalCount / 100)
-            setPages(new Array(totalPages)
-                .fill(null)
-                .map((_, ind) => ind + 1))
+            setPages(new Array(totalPages).fill(null).map((_, ind) => ind + 1))
         }
-    }, [users.totalCount])
+    }, [users.totalCount, pages.length])
+
+    // Первоначальная загрузка один раз
+    useEffect(() => {
+        if (users.items.length === 0) {
+            dispatch(getUserTH(1))
+        }
+    }, [dispatch, users.items.length])
 
     return (
         <div className={style.userpage}>
@@ -43,7 +50,7 @@ const UsersPage = () => {
                     {pages.map((el) => (
                         <button
                             key={el}
-                            onClick={() => handlepage(el)}
+                            onClick={() => handlePage(el)}
                             className={style.btn}
                         >
                             {el}
@@ -52,15 +59,20 @@ const UsersPage = () => {
                 </div>
             </div>
             <div className={style.arows}>
-                <button className={style.btn} onClick={() => minus(60)}>&#8592;</button>
-                <button className={style.btn} onClick={() => plus()}>&#8594;</button>
-            </div >
-    <div className={style.users}>
-        {users.items.map((user) => (
-            <User key={user.id} user={user} />
-        ))}
-    </div>
-        </div >
+                <button className={style.btn} onClick={minus}>&#8592;</button>
+                <button className={style.btn} onClick={plus}>&#8594;</button>
+            </div>
+            <div className={style.users}>
+                {users.items.map((user) => (
+                    <NavLink 
+                        key={user.id} 
+                        to={`/profile/${user.id}`}
+                    >
+                        <User user={user} />
+                    </NavLink>
+                ))}
+            </div>
+        </div>
     )
 }
 

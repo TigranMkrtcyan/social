@@ -45,7 +45,7 @@ const usersReducer = (state = initState, action) => {
 }
 
 const getUserAC = (user) => ({ type: GET_USERS, payload: user })
-const FetchingAC = (bool) => ({ type: FETCHING, payload: bool })
+export const FetchingAC = (bool) => ({ type: FETCHING, payload: bool })
 export const plusSize = (size) => ({type : PLUS_SIZE, payload : size})
 export const minusSize = (size) => ({type : MINUS_SIZE, payload : size})
 

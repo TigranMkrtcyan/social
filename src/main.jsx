@@ -3,6 +3,7 @@ import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 
 import store from './store/store.js'
+import validation from './schema/schema.js'
 import App from './App.jsx'
 
 import './index.css'
@@ -10,7 +11,7 @@ import './index.css'
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
   <Provider store={store}>
-    <App />
+    <App valid = {validation}/>
   </Provider>
   </BrowserRouter>
 )
