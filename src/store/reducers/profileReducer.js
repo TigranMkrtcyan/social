@@ -2,6 +2,7 @@ import API from "../../api/api"
 import { FetchingAC } from "./usersReducer"
 
 const GET_PROFILE = 'GET_PROFILE'
+const CHANGE_PHOTO = 'CHANGE_PHOTO'
 
 const initState = {
     profile: {},
@@ -16,13 +17,18 @@ const profileReducer = (state = initState, action) => {
                 loading: false,
                 profile: action.payload
             }
-
+        case CHANGE_PHOTO:
+            return {
+                ...state,
+                profile: action.payload
+            }
         default:
             return state
     }
 }
 
 const getprofileAC = (data) => ({ type: GET_PROFILE, payload: data })
+const changephotoAC = (newdata) => ({ type: CHANGE_PHOTO, payload: newdata })
 
 export const getprofileThunk = (userId) => {
     return (dispatch) => {
@@ -30,6 +36,17 @@ export const getprofileThunk = (userId) => {
         API.getProfile(userId)
             .then(res => {
                 dispatch(getprofileAC(res.data))
+                dispatch(FetchingAC(false))
+            })
+    }
+}
+
+export const changephotoThunk = (file) => {
+    return (dispatch) => {
+        dispatch(FetchingAC(true))
+        API.changePhoto(file)
+            .then(res => {
+                dispatch(changephotoAC(res.data))
                 dispatch(FetchingAC(false))
             })
     }

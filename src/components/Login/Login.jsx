@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { loginThunk } from '../../store/reducers/loginReducer'
 import { useNavigate } from 'react-router-dom'
 
+import validation from '../../schema/schema'
+
 import style from './Login.module.css'
 
-const Login = ({valid}) => {
+const Login = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { userId } = useSelector(store => store.loginReducer)
@@ -26,7 +28,7 @@ const Login = ({valid}) => {
                     password: "",
                 }}
 
-                validationSchema={valid}
+                validationSchema={validation}
 
                 onSubmit={(value) => handleLogin(value)}
             >

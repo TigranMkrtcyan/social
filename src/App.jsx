@@ -10,7 +10,7 @@ import HomePage from './pages/HomePage/HomePage'
 import './App.css'
 import ProfilePage from './pages/ProfilePage/ProfilePage'
 
-function App({valid}) {
+function App() {
   const dispatch = useDispatch()
   const { fetching } = useSelector(store => store.usersReducer)
 
@@ -23,7 +23,7 @@ function App({valid}) {
       {fetching ? <div className='loading'></div> :
         <Routes>
           <Route path='/' element={<Layout />}>
-            <Route index element={<HomePage valid={valid}/>} />
+            <Route index element={<HomePage />} />
             <Route path='/users' element={<UsersPage />} />
             <Route path='/profile/:id' element={<ProfilePage />} />
           </Route>

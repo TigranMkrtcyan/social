@@ -36,7 +36,6 @@ const UsersPage = () => {
         }
     }, [users.totalCount, pages.length])
 
-    // Первоначальная загрузка один раз
     useEffect(() => {
         if (users.items.length === 0) {
             dispatch(getUserTH(1))
